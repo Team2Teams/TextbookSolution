@@ -1,3 +1,3 @@
-function transfermoney(){
+function transferMoney(){
 return 15;
 } 
