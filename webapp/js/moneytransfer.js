@@ -26,7 +26,7 @@ function transferMoney(transferUser, recipientUser, sum ) {
         error: function ajaxError(jqXHR, textStatus, errorThrown) {
         console.error('Error requesting balance: ', textStatus, ', Details: ', errorThrown);
         console.error('Response: ', jqXHR.responseText);
-        alert('error money transfer ' + jqXHR.responseText);
+        alert('error money transfer - ' + jqXHR.responseText);
         }
     });
 }
