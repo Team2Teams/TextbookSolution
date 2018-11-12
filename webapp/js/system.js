@@ -101,7 +101,7 @@ function transferMoney(){
     
     
     function transferMoneyServer(transferUser, recipientUser, sum ) {
-        console.log("getting balance with token " + authToken);
+        console.log("transferMoneyServer with token " + authToken);
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + "/moneyTransfer",
