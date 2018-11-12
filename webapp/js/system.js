@@ -122,5 +122,7 @@ function transferMoney(){
     
     function successMoneyTransfer(result) {
         alert("Success");
+        alert(result);
+        console.log("Success - the result is " + result);
     }
     
