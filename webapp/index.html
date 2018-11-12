@@ -140,7 +140,7 @@
   <div role="main" class="ui-content">
 	  <h2>ברוך הבא למערכת הבנק! אתה מחובר למערכת.</h2>
 	  <p><a href="#bank-show-balance" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b" onclick="getBalance();">הצג יתרה</a></p>
-	  <p><a href="#bank-show-balance" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b" onclick="transferMoney();">העברה בין חשבונות</a></p>
+	  <p><a href="#transfer-money" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b" onclick="transferMoney();">העברה בין חשבונות</a></p>
 	  <p><a href="#bank-welcome" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">התנתק</a></p>
   </div><!-- /content -->
 
@@ -180,6 +180,39 @@
 		</div>
 	</div>
 </div>
+
+
+
+<!-- Transfer money-->
+<div data-role="page" id="transfer-money">
+	<div data-role="header" data-theme="b">
+		<h1>העברת כסף בין חשבונות</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<p>החשבון שמעביר את הכסף:
+			<input type="text" id="transferMoneyAccount" size="10" />
+		</p>
+		<p>החשבון שמקבל את הכסף:
+			<input type="text" id="receiverMoneyAccount" size="10" />
+		</p>
+		<p>סכום ההעברה:
+				<input type="text" id="transferMoneySum" size="10" />
+		</p>	
+		
+		<p>	
+			<a href="#bank-welcome" onclick="handleTransferMoney()" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">בצע</a>
+			<a href="#bank-welcome" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">חזרה</a>
+		</p>
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<h4>בנק המופלאים</h4>
+	</div><!-- /footer -->
+</div><!-- /page popup -->
+
+
 
 </body>
 </html>
