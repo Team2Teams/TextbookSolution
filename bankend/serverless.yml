@@ -92,6 +92,16 @@ functions:
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:730780089349:userpool/us-east-1_krOzzYShP
+  moneyTransfer:
+    handler: handler.moneyTransfer
+    events:
+      - http:
+          path: moneyTransfer
+          method: post
+          cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:730780089349:userpool/us-east-1_krOzzYShP
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
