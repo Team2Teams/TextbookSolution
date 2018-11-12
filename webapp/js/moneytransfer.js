@@ -1,3 +1,4 @@
+/*
 function transferMoney(){
 return 15;
 } 
@@ -36,3 +37,4 @@ function transferMoney(transferUser, recipientUser, sum ) {
 function successMoneyTransfer(result) {
     alert("Success");
 }
+*/
