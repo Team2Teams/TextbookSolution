@@ -74,3 +74,33 @@ module.exports.ensure_account_exists = async (username) => {
 
     return result;
 }
+
+
+module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
+    var driver = getNeo4jDriver();
+    const session = driver.session();
+    const usernameResult = await session.run("Match (n:User) WHERE n.name='"+username+"' RETURN n");
+    const recepientUserNameResult = await session.run("Match (n:User) WHERE n.name='"+recepientUserName+"' RETURN n");
+    session.close();
+    driver.close();
+
+    if (result.records.length == 0) {
+        return null;
+    }
+
+    usernameRecord = usernameResult.records[0];
+    recepientUserNameRecord = recepientUserNameResult.records[0];
+    
+    // get value and transform from neo4j-style-numbers
+    var userNameBalance = usernameRecord._fields[0].properties.balance;
+    var recepientUserNameBalance = recepientUserNameRecord._fields[0].properties.balance;
+
+    if ('low' in userNameBalance) { // if Neo4j long object, take only number.
+        userNameBalance = userNameBalance.low;
+    }
+    if ('low' in recepientUserNameBalance) { // if Neo4j long object, take only number.
+        recepientUserNameBalance = recepientUserNameBalance.low;
+    }
+    console.log("moneyTransfer result:" + userNameBalance);
+    return Number(recepientUserNameBalance);
+}
