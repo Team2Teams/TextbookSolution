@@ -96,9 +96,9 @@ module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     console.log("recepientUserNameRecord :" + recepientUserNameRecord);
     // get value and transform from neo4j-style-numbers
     var userNameBalance = usernameRecord._fields[0].properties.balance;
-    onsole.log("userNameBalance :" + userNameBalance);
+    console.log("userNameBalance :" + userNameBalance);
     var recepientUserNameBalance = recepientUserNameRecord._fields[0].properties.balance;
-    onsole.log("recepientUserNameBalance :" + recepientUserNameBalance);
+    console.log("recepientUserNameBalance :" + recepientUserNameBalance);
 
     if ('low' in userNameBalance) { // if Neo4j long object, take only number.
         userNameBalance = userNameBalance.low;
