@@ -96,11 +96,11 @@ function transferMoney(){
         var sum = document.getElementById('transferMoneySum').value;
     
         alert('transferUser = ' + transferUser + '    recipientUser = ' + recipientUser + '     sum = ' + sum);
-        transferMoney(transferUser, recipientUser, sum );
+        transferMoneyServer(transferUser, recipientUser, sum );
     }
     
     
-    function transferMoney(transferUser, recipientUser, sum ) {
+    function transferMoneyServer(transferUser, recipientUser, sum ) {
         console.log("getting balance with token " + authToken);
         $.ajax({
             method: 'POST',
