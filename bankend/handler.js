@@ -81,6 +81,22 @@ module.exports.ensureuserexists = async (event, context) => {
 
 module.exports.moneyTransfer = async (event, context) => {
   console.log("Started function moneyTransfer");
+
+
+  //temp
+  return buildReturnJSON(
+    200, 
+    JSON.stringify({
+      input: event,
+      username: "username",
+      recepientUsername: "lala",
+      recepientUsernameBalance: "150",
+      amount: 10
+    })
+  );
+
+
+
   var username = getCognitoUser(event, context);
   var requestBody = JSON.parse(event.body);
   console.log("requestBody : " + requestBody);
