@@ -87,17 +87,18 @@ try{
     200, 
     JSON.stringify({
       input: event,
-      username: "username",
-      recepientUsername: "lala",
-      recepientUsernameBalance: "150",
-      amount: 10
+      recepientUsername: "lala"
     })
   );
+
+
+
+
   }catch(e){
     return "SuperDuperError in function " + e;
   }
 
-
+//this is the real implimentation
   var username = getCognitoUser(event, context);
   var requestBody = JSON.parse(event.body);
   console.log("requestBody : " + requestBody);
@@ -111,10 +112,7 @@ try{
     200, 
     JSON.stringify({
       input: event,
-      username: username,
-      recepientUsername: recepientUsername,
-      recepientUsernameBalance: recepientUsernameBalance,
-      amount: amount
+      recepientUsername: recepientUsername
     })
   );
 };
