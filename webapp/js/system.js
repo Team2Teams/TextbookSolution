@@ -90,13 +90,13 @@ function transferMoney(){
     } 
     
     function handleTransferMoney(){
-        alert('In handleTransferMoney');
+    //    alert('In handleTransferMoney');
         var transferUser = document.getElementById('transferMoneyAccount').value;
         var recipientUser = document.getElementById('receiverMoneyAccount').value;
         var sum = document.getElementById('transferMoneySum').value;
     
         alert('transferUser = ' + transferUser + '    recipientUser = ' + recipientUser + '     sum = ' + sum);
-        transferMoneyServer(transferUser, recipientUser, sum );
+      //  transferMoneyServer(transferUser, recipientUser, sum );
     }
     
     
@@ -123,7 +123,7 @@ function transferMoney(){
     
     function successMoneyTransfer(result) {
         alert("Success");
-        alert(result);
+        alert("Money was transfered to " + result.recepientUsername);
         console.log("Success - the result is " + result);
     }
     
