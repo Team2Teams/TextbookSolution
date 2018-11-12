@@ -80,7 +80,9 @@ module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     var driver = getNeo4jDriver();
     const session = driver.session();
     const usernameResult = await session.run("Match (n:User) WHERE n.name='"+username+"' RETURN n");
+    console.log("usernameResult :" + usernameResult);
     const recepientUserNameResult = await session.run("Match (n:User) WHERE n.name='"+recepientUserName+"' RETURN n");
+    console.log("recepientUserNameResult :" + recepientUserNameResult);
     session.close();
     driver.close();
 
@@ -89,11 +91,14 @@ module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     }
 
     usernameRecord = usernameResult.records[0];
+    console.log("usernameRecord :" + usernameRecord);
     recepientUserNameRecord = recepientUserNameResult.records[0];
-    
+    console.log("recepientUserNameRecord :" + recepientUserNameRecord);
     // get value and transform from neo4j-style-numbers
     var userNameBalance = usernameRecord._fields[0].properties.balance;
+    onsole.log("userNameBalance :" + userNameBalance);
     var recepientUserNameBalance = recepientUserNameRecord._fields[0].properties.balance;
+    onsole.log("recepientUserNameBalance :" + recepientUserNameBalance);
 
     if ('low' in userNameBalance) { // if Neo4j long object, take only number.
         userNameBalance = userNameBalance.low;
@@ -101,6 +106,9 @@ module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     if ('low' in recepientUserNameBalance) { // if Neo4j long object, take only number.
         recepientUserNameBalance = recepientUserNameBalance.low;
     }
-    console.log("moneyTransfer result:" + userNameBalance);
+    if(userNameBalance<amount){
+        return null;
+    }
+    console.log("recepientUserNameBalance result:" + userNameBalance);
     return Number(recepientUserNameBalance);
 }

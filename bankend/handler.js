@@ -80,10 +80,14 @@ module.exports.ensureuserexists = async (event, context) => {
 };
 
 module.exports.moneyTransfer = async (event, context) => {
+  console.log("Started function moneyTransfer");
   var username = getCognitoUser(event, context);
   var requestBody = JSON.parse(event.body);
+  console.log("requestBody : " + requestBody);
   var recepientUsername = requestBody['recepientUsername'];
+  console.log("requestBody recepientUsername: " + recepientUsername);
   var amount = requestBody['amount'];
+  console.log("requestBody amount: " + amount);
   var recepientUsernameBalance = await Account.moneyTransfer(username,recepientUsername,amount);
 
   return buildReturnJSON(
@@ -93,6 +97,7 @@ module.exports.moneyTransfer = async (event, context) => {
       username: username,
       recepientUsername: recepientUsername,
       recepientUsernameBalance: recepientUsernameBalance,
+      amount: amount
     })
   );
 };
