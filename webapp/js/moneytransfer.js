@@ -4,9 +4,9 @@ return 15;
 
 function handleTransferMoney(){
     alert('In handleTransferMoney');
-    var transferUser = document.getElementById('transferMoneyAccount');
-    var recipientUser = document.getElementById('receiverMoneyAccount');
-    var sum = document.getElementById('transferMoneySum');
+    var transferUser = document.getElementById('transferMoneyAccount').value;
+    var recipientUser = document.getElementById('receiverMoneyAccount').value;
+    var sum = document.getElementById('transferMoneySum').value;
 
-    alert('transferUser = ' + transferUser);
+    alert('transferUser = ' + transferUser + '    recipientUser = ' + recipientUser + '     sum = ' + sum);
 }
