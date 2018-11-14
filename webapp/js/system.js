@@ -96,7 +96,7 @@ function transferMoney(){
         var sum = document.getElementById('transferMoneySum').value;
     
         alert('transferUser = ' + transferUser + '    recipientUser = ' + recipientUser + '     sum = ' + sum);
-      //  transferMoneyServer(transferUser, recipientUser, sum );
+        transferMoneyServer(transferUser, recipientUser, sum );
     }
     
     
