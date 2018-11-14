@@ -76,47 +76,68 @@ module.exports.ensure_account_exists = async (username) => {
 }
 
 
-module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
-    console.log("moneyTransfer START");
-    var driver = getNeo4jDriver();
-    const session = driver.session();
-    const usernameResult = await session.run("Match (n:User) WHERE n.name='"+username+"' RETURN n");
-    console.log("usernameResult :" + usernameResult);
-    const recepientUserNameResult = await session.run("Match (n:User) WHERE n.name='"+recepientUserName+"' RETURN n");
-    console.log("recepientUserNameResult :" + recepientUserNameResult);
-    
+module.exports.getUserData = async(username) =>{
+     var driver = getNeo4jDriver();
+     const session = driver.session();
+     const usernameResult = await session.run("Match (n:User) WHERE n.name='"+username+"' RETURN n");
+     session.close();
+     driver.close();
+     console.log("userNameResult :" + username);
 
-    if (result.records.length == 0) {
-        return null;
-    }
+    return usernameResult;
+}
 
-    usernameRecord = usernameResult.records[0];
+
+module.exports.getUserBalance = async(usernameResult) => {
+    var usernameRecord = usernameResult.records[0];
     console.log("usernameRecord :" + usernameRecord);
-    recepientUserNameRecord = recepientUserNameResult.records[0];
-    console.log("recepientUserNameRecord :" + recepientUserNameRecord);
+    
     // get value and transform from neo4j-style-numbers
     var userNameBalance = usernameRecord._fields[0].properties.balance;
     console.log("userNameBalance :" + userNameBalance);
-    var recepientUserNameBalance = recepientUserNameRecord._fields[0].properties.balance;
-    console.log("recepientUserNameBalance :" + recepientUserNameBalance);
 
     if ('low' in userNameBalance) { // if Neo4j long object, take only number.
         userNameBalance = userNameBalance.low;
     }
-    if ('low' in recepientUserNameBalance) { // if Neo4j long object, take only number.
-        recepientUserNameBalance = recepientUserNameBalance.low;
-    }
+
+    return userNameBalance;
+}
+
+
+module.exports.updateUserBalance = async(username, userNameBalance) =>{
+    var driver = getNeo4jDriver();
+    const session = driver.session();
+    var result = await session.run("Match (n:User) WHERE n.name='dudushr-at-yahoo.com' SET n.balance=6000");
+    session.close();
+    driver.close();
+    console.log("userNameResult :" + username);
+
+   return true;
+}
+
+module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
+    console.log("moneyTransfer START");
+  
+    const usernameResult = getUserData(username);
+    const recepientUserNameResult = getUserData(recepientUserName);
+    
+    var userNameBalance = getUserBalance(usernameResult);
+    
+    var recepientUserNameBalance = getUserBalance(recepientUserNameResult);
+    
+    
+    
     if(userNameBalance<amount){
         return null;
     }
+
     userNameBalance = userNameBalance - amount;
     recepientUserNameBalance = recepientUserNameBalance + amount;
-    await session.run("Match (n:User) WHERE n.name='"+username+"' set n.balance="+ userNameBalance);
-    await session.run("Match (n:User) WHERE n.name='"+recepientUserName+"' set n.balance="+ recepientUserNameBalance);
+    updateUserBalance(username, userNameBalance);
+    updateUserBalance(recepientUserName, recepientUserNameBalance);
+    
     console.log("usernameResult :" + usernameResult);
-    session.close();
-    driver.close();
     console.log("recepientUserNameBalance result:" + userNameBalance);
     console.log("moneyTransfer END");
-    return Number(recepientUserNameBalance);
+    return 1;
 }

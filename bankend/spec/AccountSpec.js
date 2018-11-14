@@ -14,5 +14,31 @@ describe("Account", function() {
         var balance = await Account.get_balance_for_user("TEST2-at-kashyoo.com");
 	expect (balance).toEqual(7000);
     });
-});
 
+    // it("Check transfer money", async function() {
+    //     var balance = await Account.moneyTransfer("dudushr-at-yahoo.com", "uri.pasternak-at-gmail.com", 100);
+    // expect (balance).toEqual(1);
+    // });
+   
+
+
+    it("Check user exist", async function() {
+        var user = await Account.getUserData("dudushr-at-yahoo.com");
+        //var user = true;
+    expect (user.records.length).toEqual(1);
+    });
+
+    it("Check balnce ", async function() {
+        var user = await Account.getUserData("dudushr-at-yahoo.com");
+        var balance = await Account.getUserBalance(user);
+    expect (balance).toEqual(6000);
+    });
+
+    it("Check update balance ", async function() {
+        
+        await Account.updateUserBalance("dudushr-at-yahoo.com", 5000);
+        balance = await Account.getUserBalance(user);
+    expect (balance).toEqual(6000);
+    });
+
+});
