@@ -83,8 +83,7 @@ module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     console.log("usernameResult :" + usernameResult);
     const recepientUserNameResult = await session.run("Match (n:User) WHERE n.name='"+recepientUserName+"' RETURN n");
     console.log("recepientUserNameResult :" + recepientUserNameResult);
-    session.close();
-    driver.close();
+    
 
     if (result.records.length == 0) {
         return null;
@@ -109,6 +108,13 @@ module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     if(userNameBalance<amount){
         return null;
     }
+    userNameBalance = userNameBalance - amount;
+    recepientUserNameBalance = recepientUserNameBalance + amount;
+    await session.run("Match (n:User) WHERE n.name='"+username+"' set n.balance="+ userNameBalance);
+    await session.run("Match (n:User) WHERE n.name='"+recepientUserName+"' set n.balance="+ recepientUserNameBalance);
+    console.log("usernameResult :" + usernameResult);
+    session.close();
+    driver.close();
     console.log("recepientUserNameBalance result:" + userNameBalance);
     return Number(recepientUserNameBalance);
 }
