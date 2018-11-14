@@ -77,6 +77,7 @@ module.exports.ensure_account_exists = async (username) => {
 
 
 module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
+    console.log("moneyTransfer START");
     var driver = getNeo4jDriver();
     const session = driver.session();
     const usernameResult = await session.run("Match (n:User) WHERE n.name='"+username+"' RETURN n");
@@ -116,5 +117,6 @@ module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     session.close();
     driver.close();
     console.log("recepientUserNameBalance result:" + userNameBalance);
+    console.log("moneyTransfer END");
     return Number(recepientUserNameBalance);
 }
