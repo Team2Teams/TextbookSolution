@@ -37,8 +37,9 @@ describe("Account", function() {
     it("Check update balance ", async function() {
         
         await Account.updateUserBalance("dudushr-at-yahoo.com", 5000);
+        var user = await Account.getUserData("dudushr-at-yahoo.com");
         balance = await Account.getUserBalance(user);
-    expect (balance).toEqual(6000);
+    expect (balance).toEqual(5000);
     });
 
 });
