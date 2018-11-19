@@ -42,4 +42,13 @@ describe("Account", function() {
     expect (balance).toEqual(7000);
     });
 
+
+    it("Final Test ", async function() {
+        
+        await Account.moneyTransfer("dudushr-at-yahoo.com", "uri.pasternak-at-gmail.com", 100);
+        var user = await Account.getUserData("dudushr-at-yahoo.com");
+        balance = await Account.getUserBalance(user);
+    expect (balance).toEqual(6900);
+    });
+
 });

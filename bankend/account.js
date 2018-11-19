@@ -118,8 +118,8 @@ module.exports.updateUserBalance = async(username, userNameBalance) =>{
 module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     console.log("moneyTransfer START");
   
-    const usernameResult = getUserData(username);
-    const recepientUserNameResult = getUserData(recepientUserName);
+    const usernameResult = Account.getUserData(username);
+    const recepientUserNameResult = Account.getUserData(recepientUserName);
     
     var userNameBalance = getUserBalance(usernameResult);
     
