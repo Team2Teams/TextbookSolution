@@ -107,7 +107,7 @@ module.exports.getUserBalance = async(usernameResult) => {
 module.exports.updateUserBalance = async(username, userNameBalance) =>{
     var driver = getNeo4jDriver();
     const session = driver.session();
-    var result = await session.run("Match (n:User) WHERE n.name='dudushr-at-yahoo.com' SET n.balance=5000");
+    await session.run("Match (n:User) WHERE n.name='"+ username + "' SET n.balance=" + userNameBalance);
     session.close();
     driver.close();
     console.log("userNameResult :" + username);
