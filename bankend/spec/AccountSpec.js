@@ -1,6 +1,9 @@
 const Account = require('../account');
 
 describe("Account", function() {
+
+
+
     beforeAll(async function() {
         await Account.ensure_account_exists("TEST2-at-kashyoo.com");
     });
@@ -20,11 +23,7 @@ describe("Account", function() {
     // expect (balance).toEqual(1);
     // });
    
-beforeEach(function() {
-     Account.updateUserBalance("dudushr-at-yahoo.com", 7000);
-     Account.updateUserBalance("uri.pasternak-at-gmail.com", 7000);
-    
-})
+
 
     it("Check user exist", async function() {
         var user = await Account.getUserData("dudushr-at-yahoo.com");
@@ -32,10 +31,10 @@ beforeEach(function() {
     expect (user.records.length).toEqual(1);
     });
 
-    xit("Check balnce ", async function() {
+    it("Check balance ", async function() {
         var user = await Account.getUserData("dudushr-at-yahoo.com");
         var balance = await Account.getUserBalance(user);
-    expect (balance).toEqual(5000);
+    expect (balance).toEqual(7000);
     });
 
     it("Check update balance ", async function() {
@@ -47,16 +46,12 @@ beforeEach(function() {
     });
 
 
-    it("successfull transfer", async function() {
+    it("Final Test ", async function() {
+        console.log("!!! starting final!!!");
         await Account.moneyTransfer("dudushr-at-yahoo.com", "uri.pasternak-at-gmail.com", 100);
         var user = await Account.getUserData("dudushr-at-yahoo.com");
         balance = await Account.getUserBalance(user);
-
-        expect (balance).toEqual(6900);
+    expect (balance).toEqual(6900);
     });
-
-
-    
-
 
 });

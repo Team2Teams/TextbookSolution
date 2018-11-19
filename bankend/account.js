@@ -75,8 +75,7 @@ module.exports.ensure_account_exists = async (username) => {
     return result;
 }
 
-
-module.exports.getUserData = async(username) =>{
+async function getUserData(username){
      var driver = getNeo4jDriver();
      const session = driver.session();
      const usernameResult = await session.run("Match (n:User) WHERE n.name='"+username+"' RETURN n");
@@ -86,9 +85,9 @@ module.exports.getUserData = async(username) =>{
 
     return usernameResult;
 }
+module.exports.getUserData = getUserData;
 
-
-module.exports.getUserBalance = async(usernameResult) => {
+async function getUserBalance(usernameResult) {
     var usernameRecord = usernameResult.records[0];
     console.log("usernameRecord :" + usernameRecord);
     
@@ -103,8 +102,10 @@ module.exports.getUserBalance = async(usernameResult) => {
     return userNameBalance;
 }
 
+module.exports.getUserBalance = getUserBalance;
 
-module.exports.updateUserBalance = async(username, userNameBalance) =>{
+
+async function updateUserBalance(username, userNameBalance){
     var driver = getNeo4jDriver();
     const session = driver.session();
     await session.run("Match (n:User) WHERE n.name='"+ username + "' SET n.balance=" + userNameBalance);
@@ -115,14 +116,20 @@ module.exports.updateUserBalance = async(username, userNameBalance) =>{
    return true;
 }
 
+module.exports.updateUserBalance = updateUserBalance;
+
 module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     console.log("moneyTransfer START");
   
-    const usernameResult = Account.getUserData(username);
-    const recepientUserNameResult = Account.getUserData(recepientUserName);
-    
-    var userNameBalance = getUserBalance(usernameResult);
-    
+console.log("!!1!!");
+    usernameResult = await getUserData(username);
+console.log("!!2!!");
+    recepientUserNameResult = await getUserData(recepientUserName);
+console.log("!!3!!");
+
+var userNameBalance = getUserBalance(usernameResult);
+
+console.log("!!4!!");
     var recepientUserNameBalance = getUserBalance(recepientUserNameResult);
     
     
@@ -135,7 +142,7 @@ module.exports.moneyTransfer = async (username,recepientUserName,amount) => {
     recepientUserNameBalance = recepientUserNameBalance + amount;
     updateUserBalance(username, userNameBalance);
     updateUserBalance(recepientUserName, recepientUserNameBalance);
-    
+console.log("!!!5!!!");    
     console.log("usernameResult :" + usernameResult);
     console.log("recepientUserNameBalance result:" + userNameBalance);
     console.log("moneyTransfer END");
