@@ -20,7 +20,11 @@ describe("Account", function() {
     // expect (balance).toEqual(1);
     // });
    
-
+beforeEach(function() {
+     Account.updateUserBalance("dudushr-at-yahoo.com", 7000);
+     Account.updateUserBalance("uri.pasternak-at-gmail.com", 7000);
+    
+})
 
     it("Check user exist", async function() {
         var user = await Account.getUserData("dudushr-at-yahoo.com");
@@ -43,12 +47,16 @@ describe("Account", function() {
     });
 
 
-    it("Final Test ", async function() {
-        
+    it("successfull transfer", async function() {
         await Account.moneyTransfer("dudushr-at-yahoo.com", "uri.pasternak-at-gmail.com", 100);
         var user = await Account.getUserData("dudushr-at-yahoo.com");
         balance = await Account.getUserBalance(user);
-    expect (balance).toEqual(6900);
+
+        expect (balance).toEqual(6900);
     });
+
+
+    
+
 
 });
