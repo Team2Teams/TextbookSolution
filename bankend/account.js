@@ -127,10 +127,10 @@ console.log("!!2!!");
     recepientUserNameResult = await getUserData(recepientUserName);
 console.log("!!3!!");
 
-var userNameBalance = getUserBalance(usernameResult);
+var userNameBalance = await getUserBalance(usernameResult);
 
 console.log("!!4!!");
-    var recepientUserNameBalance = getUserBalance(recepientUserNameResult);
+    var recepientUserNameBalance = await getUserBalance(recepientUserNameResult);
     
     
     
@@ -140,8 +140,8 @@ console.log("!!4!!");
 
     userNameBalance = userNameBalance - amount;
     recepientUserNameBalance = recepientUserNameBalance + amount;
-    updateUserBalance(username, userNameBalance);
-    updateUserBalance(recepientUserName, recepientUserNameBalance);
+    await updateUserBalance(username, userNameBalance);
+    await updateUserBalance(recepientUserName, recepientUserNameBalance);
 console.log("!!!5!!!");    
     console.log("usernameResult :" + usernameResult);
     console.log("recepientUserNameBalance result:" + userNameBalance);
