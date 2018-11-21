@@ -140,8 +140,8 @@ console.log("!!4!!");
 
     userNameBalance = userNameBalance - amount;
     recepientUserNameBalance = recepientUserNameBalance + amount;
-    await updateUserBalance(username, userNameBalance);
-    await updateUserBalance(recepientUserName, recepientUserNameBalance);
+    updateUserBalance(username, userNameBalance);
+    updateUserBalance(recepientUserName, recepientUserNameBalance);
 console.log("!!!5!!!");    
     console.log("usernameResult :" + usernameResult);
     console.log("recepientUserNameBalance result:" + userNameBalance);
