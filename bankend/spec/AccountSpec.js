@@ -10,12 +10,12 @@ describe("Account", function() {
         await Account.updateUserBalance("uri.pasternak-at-gmail.com", 7000);
     });
 
-    it("return null when username does not exist", async function() {
+    xit("return null when username does not exist", async function() {
         var balance = await Account.get_balance_for_user("nonexist");
 	expect (balance).toEqual(null);
     });
 
-    it("return 7000 for test user", async function() {
+    xit("return 7000 for test user", async function() {
         var balance = await Account.get_balance_for_user("TEST2-at-kashyoo.com");
 	expect (balance).toEqual(7000);
     });
@@ -27,13 +27,13 @@ describe("Account", function() {
    
 
 
-    it("Check user exist", async function() {
+    xit("Check user exist", async function() {
         var user = await Account.getUserData("dudushr-at-yahoo.com");
         //var user = true;
     expect (user.records.length).toEqual(1);
     });
 
-    it("Check balance ", async function() {
+    xit("Check balance ", async function() {
         var user = await Account.getUserData("dudushr-at-yahoo.com");
         var balance = await Account.getUserBalance(user);
     expect (balance).toEqual(7000);
