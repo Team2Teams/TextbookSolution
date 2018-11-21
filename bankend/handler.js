@@ -84,6 +84,7 @@ module.exports.moneyTransfer = async (event, context) => {
 
 //this is the real implimentation
   var username = getCognitoUser(event, context);
+  console.log("event.body : " + event.body);
   var requestBody = JSON.parse(event.body);
   console.log("requestBody : " + requestBody);
   var recepientUsername = requestBody['recepientUsername'];
