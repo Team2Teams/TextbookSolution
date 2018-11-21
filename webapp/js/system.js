@@ -102,6 +102,7 @@ function transferMoney(){
     
     function transferMoneyServer(transferUser, recipientUser, sum ) {
         console.log("transferMoneyServer with token " + authToken);
+        recipientUser.replace("@","-at-");
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + "/moneyTransfer",
