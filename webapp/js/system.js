@@ -108,7 +108,7 @@ function transferMoney(){
             headers: {
                 Authorization: authToken
             },
-            data:{"recepientUsername": recipientUser, "amount": sum},
+            data:'{"recepientUsername": "' + recipientUser + '","amount":'  + sum + '}',
             contentType: 'application/json',
             success: successMoneyTransfer,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
