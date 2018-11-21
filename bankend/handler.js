@@ -81,22 +81,6 @@ module.exports.ensureuserexists = async (event, context) => {
 
 module.exports.moneyTransfer = async (event, context) => {
   console.log("Started function moneyTransfer");
-try{
-  //temp
-  return buildReturnJSON(
-    200, 
-    JSON.stringify({
-      input: event,
-      recepientUsername: "lala"
-    })
-  );
-
-
-
-
-  }catch(e){
-    return "SuperDuperError in function " + e;
-  }
 
 //this is the real implimentation
   var username = getCognitoUser(event, context);
