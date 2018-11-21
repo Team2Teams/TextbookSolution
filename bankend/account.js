@@ -146,5 +146,10 @@ console.log("!!!5!!!");
     console.log("usernameResult :" + usernameResult);
     console.log("recepientUserNameBalance result:" + userNameBalance);
     console.log("moneyTransfer END");
+
+    usernameResult = await getUserData(username);
+    userNameBalance = await getUserBalance(usernameResult);
+    console.log("==========> user fromDB = " + userNameBalance);
+
     return 1;
 }  

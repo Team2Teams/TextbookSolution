@@ -6,6 +6,8 @@ describe("Account", function() {
 
     beforeAll(async function() {
         await Account.ensure_account_exists("TEST2-at-kashyoo.com");
+        await Account.updateUserBalance("dudushr-at-yahoo.com", 7000);
+        await Account.updateUserBalance("uri.pasternak-at-gmail.com", 7000);
     });
 
     it("return null when username does not exist", async function() {
@@ -37,7 +39,7 @@ describe("Account", function() {
     expect (balance).toEqual(7000);
     });
 
-    it("Check update balance ", async function() {
+    xit("Check update balance ", async function() {
         
         await Account.updateUserBalance("dudushr-at-yahoo.com", 7000);
         var user = await Account.getUserData("dudushr-at-yahoo.com");
