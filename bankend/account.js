@@ -147,4 +147,4 @@ console.log("!!!5!!!");
     console.log("recepientUserNameBalance result:" + userNameBalance);
     console.log("moneyTransfer END");
     return 1;
-}
+}  
