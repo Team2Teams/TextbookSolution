@@ -16,7 +16,7 @@ function getNeo4jDriver()
 /********************************************************************** */
 // new event - new neo4j node
 /********************************************************************** */
-module.exports.createTransferEvent async (from,to,amount) =>
+module.exports.createTransferEvent = async  (from,to,amount) =>
 {
         var driver = getNeo4jDriver();
         const session = driver.session();
