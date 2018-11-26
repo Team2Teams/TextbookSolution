@@ -1,6 +1,7 @@
 'use strict';
 
 const Account = require('./account');
+const TransferEvent = require('./transferEvent');
 
 function getCognitoUser(event, context) {
   if (!event.requestContext.authorizer) {
@@ -92,6 +93,7 @@ module.exports.moneyTransfer = async (event, context) => {
   var amount = requestBody['amount'];
   console.log("requestBody amount: " + amount);
   var recepientUsernameBalance = await Account.moneyTransfer(username,recepientUsername,amount);
+  var creationResult=await TransferEvent.createTransferEvent(username,recepientUsername,amount)
 
   return buildReturnJSON(
     200, 
