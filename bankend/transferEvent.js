@@ -26,5 +26,20 @@ module.exports.createTransferEvent = async  (from,to,amount) =>
         var createQuery='CREATE (a:Event { EventId: '+eventId+', Type : "Money Transfer", From : "'+from+'", To : "'+to+'",Amount : '+amount+' , Date : "'+date+'" })';
         const createQueryResult =session.run(createQuery);
         console.log("Result of createQueryResult - "+  createQueryResult);
+
+        var fromMatchQuery='MATCH (a:User),(b:Event) ';
+        var fromWhereQuery='WHERE a.name = "'+from+'" AND b.EventId = '+eventId+' ';
+        var fromCreateQuery='CREATE (a)-[r:From]->(b)';
+        var fromFinalQuery= fromMatchQuery+ fromWhereQuery+ fromCreateQuery;
+        const fromFinalQueryResult =session.run(fromFinalQuery);
+        console.log("Result of fromFinalQueryResult - "+  fromFinalQueryResult);
+
+        var toMatchQuery='MATCH (a:User),(b:Event) ';
+        var toWhereQuery='WHERE a.name = "'+to+'" AND b.EventId = '+eventId+' ';
+        var toCreateQuery='CREATE (b)-[r:To]->(a)';
+        var toFinalQuery= toMatchQuery+ toWhereQuery+ toCreateQuery;
+        const toFinalQueryResult =session.run(toFinalQuery);
+        console.log("Result of toFinalQueryResult - "+  toFinalQueryResult);
+
         return true;
 }
