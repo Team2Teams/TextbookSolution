@@ -24,7 +24,7 @@ module.exports.createTransferEvent = async  (from,to,amount) =>
         var eventId=Math.floor(Math.random() * 10000);
         var date = new Date(); 
         var createQuery='CREATE (a:Event { EventId: '+eventId+', Type : "Money Transfer", From : "'+from+'", To : "'+to+'",Amount : '+amount+' , Date : "'+date+'" })';
-        const result =session.run(createQuery);
-        console.log("Result of createTransferEvent - "+  result);
+        const createQueryResult =session.run(createQuery);
+        console.log("Result of createQueryResult - "+  createQueryResult);
         return true;
 }
