@@ -41,5 +41,27 @@ module.exports.createTransferEvent = async  (from,to,amount) =>
         const toFinalQueryResult =session.run(toFinalQuery);
         console.log("Result of toFinalQueryResult - "+  toFinalQueryResult);
 
+
+        var toMatchQuery='MATCH (a:User),(b:Event) ';
+        var toWhereQuery='WHERE a.name = "'+to+'" AND b.EventId = '+eventId+' ';
+        var toCreateQuery='CREATE (b)-[r:To]->(a)';
+        var toFinalQuery= toMatchQuery+ toWhereQuery+ toCreateQuery;
+        const toFinalQueryResult =session.run(toFinalQuery);
+        console.log("Result of toFinalQueryResult - "+  toFinalQueryResult);
+
+
+        var findLastQuery='MATCH (a:Event) WHERE a.From= "'+from+'" AND NOT (a)-[:Next]->() RETURN a.EventId';
+        var findLastResult = await session.run(findLastQuery);
+        console.log("Result of findLastResult - "+  findLastResult);
+        //get the event id of the last event for the user
+        var formerEventId=findLastResult;
+
+        var nextMatchQuery='MATCH (a:Event),(b:Event) ';
+        var nextWhereQuery='WHERE a.EventId = '+formerEventId+' AND b.EventId = '+eventId+' ';
+        var nextCreateQuery='CREATE (a)-[r:Next]->(b)';
+        var toFinalQuery= toMatchQuery+ toWhereQuery+ toCreateQuery;
+        const toFinalQueryResult =session.run(toFinalQuery);
+        console.log("Result of toFinalQueryResult - "+  toFinalQueryResult);
+
         return true;
 }
