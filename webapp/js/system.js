@@ -95,7 +95,7 @@ function transferMoney(){
         var recipientUser = document.getElementById('receiverMoneyAccount').value;
         var sum = document.getElementById('transferMoneySum').value;
     
-        alert('transferUser = ' + transferUser + '    recipientUser = ' + recipientUser + '     sum = ' + sum);
+        //alert('transferUser = ' + transferUser + '    recipientUser = ' + recipientUser + '     sum = ' + sum);
         transferMoneyServer(transferUser, recipientUser, sum );
     }
     
@@ -115,7 +115,7 @@ function transferMoney(){
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
             console.error('Error requesting balance: ', textStatus, ', Details: ', errorThrown);
             console.error('Response: ', jqXHR.responseText);
-            alert('error money transfer - ' + jqXHR.responseText);
+            //alert('error money transfer - ' + jqXHR.responseText);
             }
         });
     }
@@ -123,7 +123,7 @@ function transferMoney(){
     
     
     function successMoneyTransfer(result) {
-        alert("Success");
+        //alert("Success");
         alert("Money was transfered to " + result.recepientUsername);
         console.log("Success - the result is " + result);
     }
