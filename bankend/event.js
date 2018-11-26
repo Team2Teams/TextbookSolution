@@ -13,3 +13,5 @@ function getNeo4jDriver()
         console.log("Created neo4j driver.");
         return driver;
 }
+
+}  
