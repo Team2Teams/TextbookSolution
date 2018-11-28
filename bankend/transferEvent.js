@@ -21,6 +21,18 @@ module.exports.createTransferEvent = async  (from,to,amount) =>
         var driver = getNeo4jDriver();
         const session = driver.session();
         console.log("Started createTransferEvent");
+
+
+        var findLastQuery='MATCH (a:Event) WHERE a.From= "'+from+'" AND NOT (a)-[:Next]->() RETURN a.EventId';
+        var findLastResult = await session.run(findLastQuery);
+        console.log("Result of findLastResult - "+  findLastResult);
+
+        //get the event id of the last event for the user
+        var record = findLastResult.records[0];
+        console.log("Result of findLastResult 2 - "+  record);
+        var formerEventId=record._fields[0];
+
+
         var eventId=Math.floor(Math.random() * 10000);
         var date = new Date(); 
         var createQuery='CREATE (a:Event { EventId: '+eventId+', Type : "Money Transfer", From : "'+from+'", To : "'+to+'",Amount : '+amount+' , Date : "'+date+'" })';
@@ -41,22 +53,15 @@ module.exports.createTransferEvent = async  (from,to,amount) =>
         const toFinalQueryResult =session.run(toFinalQuery);
         console.log("Result of toFinalQueryResult - "+  toFinalQueryResult);
 
-        var findLastQuery='MATCH (a:Event) WHERE a.From= "'+from+'" AND NOT (a)-[:Next]->() RETURN a.EventId';
-        var findLastResult = await session.run(findLastQuery);
-        console.log("Result of findLastResult - "+  findLastResult);
-
-        //get the event id of the last event for the user
-        var record = findLastResult.records[0];
-        console.log("Result of findLastResult 2 - "+  record);
-        var formerEventId=record._fields[0];
-
-        console.log("Result of formerEventId - "+  formerEventId);
-        var nextMatchQuery='MATCH (a:Event),(b:Event) ';
-        var nextWhereQuery='WHERE a.EventId = '+formerEventId+' AND b.EventId = '+eventId+' ';
-        var nextCreateQuery='CREATE (a)-[r:Next]->(b)';
-        var nextFinalQuery= nextMatchQuery+ nextWhereQuery+ nextCreateQuery;
-        const nextFinalQueryResult =session.run(nextFinalQuery);
-        console.log("Result of nextFinalQueryResult - "+  nextFinalQueryResult);
-
+   
+        if(formerEventId!=null){
+                console.log("Result of formerEventId - "+  formerEventId);
+                var nextMatchQuery='MATCH (a:Event),(b:Event) ';
+                var nextWhereQuery='WHERE a.EventId = '+formerEventId+' AND b.EventId = '+eventId+' ';
+                var nextCreateQuery='CREATE (a)-[r:Next]->(b)';
+                var nextFinalQuery= nextMatchQuery+ nextWhereQuery+ nextCreateQuery;
+                const nextFinalQueryResult =session.run(nextFinalQuery);
+                console.log("Result of nextFinalQueryResult - "+  nextFinalQueryResult);
+        }
         return true;
 }
