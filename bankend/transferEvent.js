@@ -41,12 +41,13 @@ module.exports.createTransferEvent = async  (from,to,amount) =>
         const toFinalQueryResult =session.run(toFinalQuery);
         console.log("Result of toFinalQueryResult - "+  toFinalQueryResult);
 
-        var findLastQuery='MATCH (a:Event) WHERE a.From= "'+from+'" AND NOT (a)-[:Next]->() RETURN EventId(a)';
+        var findLastQuery='MATCH (a:Event) WHERE a.From= "'+from+'" AND NOT (a)-[:Next]->() RETURN a.EventId';
         var findLastResult = await session.run(findLastQuery);
         console.log("Result of findLastResult - "+  findLastResult);
 
         //get the event id of the last event for the user
         var record = findLastResult.records[0];
+        console.log("Result of findLastResult 2 - "+  record);
         var formerEventId=record._fields[0];
 
         console.log("Result of formerEventId - "+  formerEventId);
