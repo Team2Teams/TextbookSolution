@@ -51,7 +51,7 @@ module.exports.createTransferEvent = async  (from,to,amount) =>
         var nextWhereQuery='WHERE a.EventId = '+formerEventId+' AND b.EventId = '+eventId+' ';
         var nextCreateQuery='CREATE (a)-[r:Next]->(b)';
         var nextFinalQuery= nextMatchQuery+ nextWhereQuery+ nextCreateQuery;
-        const nextFinalQueryResult =session.run(toFinalQuery);
+        const nextFinalQueryResult =session.run(nextFinalQuery);
         console.log("Result of nextFinalQueryResult - "+  nextFinalQueryResult);
 
         return true;
