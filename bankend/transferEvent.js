@@ -28,10 +28,12 @@ module.exports.createTransferEvent = async  (from,to,amount) =>
         console.log("Result of findLastResult - "+  findLastResult);
 
         //get the event id of the last event for the user
+        var formerEventId;
         var record = findLastResult.records[0];
         console.log("Result of findLastResult 2 - "+  record);
-        var formerEventId=record._fields[0];
-
+        if(record!=null){
+                formerEventId=record._fields[0];
+        }
 
         var eventId=Math.floor(Math.random() * 10000);
         var date = new Date(); 
